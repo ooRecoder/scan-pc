@@ -4,10 +4,12 @@ from .base_service import BaseService
 class RAMService(BaseService):
     def __init__(self, **options):
         super().__init__(**options)
-        # Unidade de memória: GB por padrão
-        self.unit = self.options.get("unit", "GB")
-        # Tipo de memória a coletar: total, disponível, usada ou porcentagem
-        self.metric = self.options.get("metric", "total")  
+        # Configurações padrão
+        self.options.setdefault("unit", "GB")       # Unidade de memória: GB, MB, TB
+        self.options.setdefault("metric", "total")  # total, available, used, percent
+
+        self.unit = self.options["unit"]
+        self.metric = self.options["metric"]
 
     def collect(self) -> dict:
         mem = psutil.virtual_memory()
@@ -24,7 +26,8 @@ class RAMService(BaseService):
         else:
             raise ValueError(f"Métrica desconhecida: {self.metric}")
 
-        if self.metric != "percent":  # converte unidades apenas se não for porcentagem
+        # Converte unidade apenas se não for porcentagem
+        if self.metric != "percent":
             if self.unit == "MB":
                 value = round(value / (1024**2), 2)
             elif self.unit == "GB":
@@ -32,4 +35,6 @@ class RAMService(BaseService):
             elif self.unit == "TB":
                 value = round(value / (1024**4), 2)
 
-        return {f"RAM_{self.metric}": f"{value} {self.unit if self.metric != 'percent' else '%'}"}
+        return {
+            f"RAM_{self.metric}": f"{value} {self.unit if self.metric != 'percent' else '%'}"
+        }
