@@ -4,6 +4,8 @@ from services.ram_service import RAMService
 from services.os_service import OSService
 from services.arch_service import ArchService
 from services.device_name_service import DeviceNameService
+from core.storage import update_machine_info, get_machine_info
+
 
 class Scanner:
     def __init__(self, config=None):
@@ -24,8 +26,17 @@ class Scanner:
             options = self.config.get(name, {})
             self.services.append(service_class(**options))
 
-    def run(self):
+    def run(self, save=True):
         results = {}
         for service in self.services:
             results.update(service.collect())
+
+        if save:
+            update_machine_info(results)  # <--- Salva no JSON
+
         return results
+
+    def get_saved_info(self):
+        """Retorna as informações salvas desta máquina."""
+        return get_machine_info()
+

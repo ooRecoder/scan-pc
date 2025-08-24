@@ -1,0 +1,41 @@
+{
+    "00:E0:4C:A2:0A:D0": {
+        "S.O": {
+            "Sistema Operacional": "Windows",
+            "Versão": "10.0.19045",
+            "Release": "10"
+        },
+        "CPU": {
+            "CPU": "Intel64 Family 6 Model 42 Stepping 7, GenuineIntel",
+            "Uso (%)": 9.7,
+            "Núcleos": 4
+        },
+        "RAM_total": "7.89 GB",
+        "Discos": {
+            "C:\\": {
+                "Ponto de Montagem": "C:\\",
+                "Sistema de Arquivos": "NTFS",
+                "Tipo": "Desconhecido",
+                "Detalhes": "",
+                "Total": "111.15 GB",
+                "Usado": "37.49 GB",
+                "Livre": "73.65 GB",
+                "Percentual": "33.7%"
+            },
+            "D:\\": {
+                "Ponto de Montagem": "D:\\",
+                "Sistema de Arquivos": "NTFS",
+                "Tipo": "Desconhecido",
+                "Detalhes": "",
+                "Total": "931.51 GB",
+                "Usado": "116.81 GB",
+                "Livre": "814.7 GB",
+                "Percentual": "12.5%"
+            }
+        },
+        "Arquitetura": "64bit",
+        "DeviceName": {
+            "Nome do dispositivo": "DESKTOP-VBOSV2P"
+        }
+    }
+}

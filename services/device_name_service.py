@@ -20,4 +20,4 @@ class DeviceNameService(BaseService):
             except Exception:
                 data["FQDN"] = "Não disponível"
 
-        return data
+        return {"DeviceName": data}

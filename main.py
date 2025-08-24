@@ -1,7 +1,8 @@
 from core.scanner import Scanner
-from core.storage import get_machine_info
 
 if __name__ == "__main__":
+    print("=== Machine Scanner ===")
+
     config = {
         "CPUService": {"usage": True},
         "DiskService": {"detail": "full"},
@@ -10,11 +11,15 @@ if __name__ == "__main__":
     }
 
     scanner = Scanner(config)
-    resultado = scanner.run()
 
-    print("=== Resultado do Scan ===")
-    for k, v in resultado.items():
+    # Executa o scan e salva no JSON
+    results = scanner.run()
+
+    print("\n=== Resultado do Scan (runtime) ===")
+    for k, v in results.items():
         print(f"{k}: {v}")
 
-    print("\n=== Dados salvos no JSON ===")
-    print(get_machine_info())
+    print("\n=== Informações salvas no JSON ===")
+    saved = scanner.get_saved_info()
+    for k, v in saved.items():
+        print(f"{k}: {v}")

@@ -22,4 +22,4 @@ class CPUService(BaseService):
         if self.options.get("cores", True):
             data["Núcleos"] = psutil.cpu_count(logical=True)
 
-        return data
+        return {"CPU": data}

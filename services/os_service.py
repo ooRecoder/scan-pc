@@ -21,4 +21,4 @@ class OSService(BaseService):
         if self.options.get("release", True):
             data["Release"] = platform.release()
 
-        return data
+        return {"S.O": data}

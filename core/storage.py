@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import Any, Dict, Optional
 from core.utils import get_mac_address
 
-DATA_FILE = Path("data/machines.json")
+DATA_FILE = Path("json/machines.json")
 
 
 def load_data() -> Dict[str, Any]:

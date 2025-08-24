@@ -1,0 +1,66 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribuição / pacotes
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+parts/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.manifest
+*.spec
+
+# Virtualenv / venv
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Configuração do PyInstaller
+*.manifest
+*.spec
+
+# Logs e banco de dados local
+*.log
+*.pot
+*.pyc
+*.pyo
+*.sqlite3
+*.db
+
+# Ferramentas de teste/coverage
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# PyCharm / VSCode / Outras IDEs
+.idea/
+.vscode/
+*.code-workspace
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
