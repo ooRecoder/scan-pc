@@ -1,6 +1,1 @@
-{
-    "DEVICE": {
-        "include_system": true,
-        "include_battery": true
-    }
-}
+{}
