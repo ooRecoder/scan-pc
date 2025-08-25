@@ -15,6 +15,19 @@ class DEVICE(BaseService):
     Esse serviço é útil para inventário de máquinas, diagnósticos
     ou aplicações que precisem diferenciar entre notebooks e desktops.
     """
+    BATTERY_STATUS_MAP = {
+        1: "Discharging",
+        2: "AC Power",
+        3: "Fully Charged",
+        4: "Low",
+        5: "Critical",
+        6: "Charging",
+        7: "Charging and High",
+        8: "Charging and Low",
+        9: "Charging and Critical",
+        10: "Undefined",
+        11: "Partially Charged"
+    }
 
     PC_SYSTEM_TYPE_MAP = {
         0: "Unknown",
@@ -60,9 +73,14 @@ class DEVICE(BaseService):
         if self.options["include_battery"]:
             battery_list = []
             for battery in self.wmi_client.Win32_Battery():
+                # print(battery)
                 battery_list.append({
                     "Name": battery.Name,
-                    "Status": battery.BatteryStatus
+                    "Status": self.BATTERY_STATUS_MAP.get(battery.BatteryStatus, "Unknown"),
+                    "Description": battery.Description,
+                    "DeviceID": battery.DeviceID,
+                    "EstimatedRunTime": battery.EstimatedRunTime,
+                    "DesignVoltage": battery.DesignVoltage
                 })
             result["Battery"] = battery_list
 

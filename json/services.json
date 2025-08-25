@@ -31,11 +31,6 @@
         "type": "boolean",
         "default": true,
         "description": "Incluir informações sobre a(s) bateria(s) do dispositivo, se houver."
-      },
-      "include_bios": {
-        "type": "boolean",
-        "default": true,
-        "description": "Incluir informações de BIOS (número de série, versão e data de release)."
       }
     }
   },

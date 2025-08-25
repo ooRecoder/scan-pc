@@ -27,6 +27,11 @@ class ConfigManager:
     def set_service_config(self, service_name, options):
         self.config[service_name] = options
         self.save()
+        
+    def remove_service(self, service_name):
+        if service_name in self.config:
+            del self.config[service_name]
+            self.save()
 
     def list_services(self):
         return list(self.config.keys())

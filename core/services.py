@@ -223,3 +223,15 @@ class ServiceManager:
         """
         options = self.get_service_options(service_name)
         return options.get(option_name) if options else None
+    
+    def get_option_choices(self, service_name: str, option_name: str) -> Optional[List[Any]]:
+        options = self.get_service_options(service_name)
+        if options and option_name in options:
+            return options[option_name].get("options")
+        return None
+
+    def get_option_description(self, service_name: str, option_name: str) -> Optional[str]:
+        options = self.get_service_options(service_name)
+        if options and option_name in options:
+            return options[option_name].get("description")
+        return None

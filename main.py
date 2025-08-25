@@ -1,12 +1,10 @@
 import sys
 from PySide6.QtWidgets import QApplication
-from gui.main_window import MainWindow
+from gui.main_window import MainApp
 
 def main():
-    app = QApplication(sys.argv)
-    window = MainWindow()
-    window.show()
-    sys.exit(app.exec())
+    app = MainApp()
+    app.mainloop()
 
 if __name__ == "__main__":
     main()
