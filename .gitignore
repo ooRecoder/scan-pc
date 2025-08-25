@@ -68,3 +68,4 @@ Thumbs.db
 
 # Ignore json
 machines.json
+config.json
