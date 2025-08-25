@@ -1,5 +1,5 @@
 {
-  "CPUService": {
+  "CPU": {
     "description": "Coleta informações sobre a CPU do sistema",
     "options": {
       "usage": {
@@ -19,7 +19,7 @@
       }
     }
   },
-  "DeviceService": {
+  "DEVICE": {
     "description": "Coleta informações detalhadas do sistema Windows, incluindo fabricante, modelo, tipo de equipamento e baterias.",
     "options": {
       "include_system": {
@@ -39,10 +39,10 @@
       }
     }
   },
-  "BiosService": {
+  "BIOS": {
     "description": "Serviço responsável por coletar informações da BIOS no Windows usando WMI."
   },
-  "DiskService": {
+  "DISK": {
     "description": "Coleta informações sobre os discos do sistema, incluindo modelo, uso, estatísticas de I/O e saúde.",
     "options": {
       "disk_model": {
@@ -67,7 +67,7 @@
       }
     }
   },
-  "OSService": {
+  "OS": {
     "description": "Coleta informações sobre o sistema operacional, incluindo nome, versão e release.",
     "options": {
       "system": {
