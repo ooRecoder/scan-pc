@@ -119,60 +119,6 @@ class ServiceManager:
             return options[option_name].get('default')
         return None
     
-    def set_option_value(self, service_name: str, option_name: str, value: Any) -> bool:
-        """
-        Define o valor de uma opção específica de um serviço
-        
-        Args:
-            service_name (str): Nome do serviço
-            option_name (str): Nome da opção
-            value (Any): Novo valor para a opção
-            
-        Returns:
-            bool: True se a opção foi definida com sucesso, False caso contrário
-        """
-        service = self.get_service(service_name)
-        if not service or 'options' not in service:
-            return False
-        
-        options = service['options']
-        if option_name not in options:
-            return False
-        
-        # Verifica se o tipo do valor é compatível
-        expected_type = options[option_name].get('type')
-        if expected_type == 'boolean' and not isinstance(value, bool):
-            raise ValueError(f"Valor deve ser booleano para a opção {option_name}")
-        
-        options[option_name]['default'] = value
-        return True
-    
-    def enable_service_option(self, service_name: str, option_name: str) -> bool:
-        """
-        Habilita uma opção de serviço (define como True)
-        
-        Args:
-            service_name (str): Nome do serviço
-            option_name (str): Nome da opção
-            
-        Returns:
-            bool: True se a opção foi habilitada, False caso contrário
-        """
-        return self.set_option_value(service_name, option_name, True)
-    
-    def disable_service_option(self, service_name: str, option_name: str) -> bool:
-        """
-        Desabilita uma opção de serviço (define como False)
-        
-        Args:
-            service_name (str): Nome do serviço
-            option_name (str): Nome da opção
-            
-        Returns:
-            bool: True se a opção foi desabilitada, False caso contrário
-        """
-        return self.set_option_value(service_name, option_name, False)
-    
     def get_enabled_options(self, service_name: str) -> Dict[str, Dict[str, Any]]:
         """
         Obtém todas as opções habilitadas de um serviço
