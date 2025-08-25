@@ -1,8 +1,7 @@
-# services/system_info_service.py
-
+from .base_service import BaseService
 import wmi
 
-class DeviceInfoService:
+class DeviceInfoService(BaseService):
     """
     Serviço responsável por coletar e organizar informações detalhadas
     do sistema Windows por meio do WMI (Windows Management Instrumentation).
@@ -20,10 +19,10 @@ class DeviceInfoService:
     PC_SYSTEM_TYPE_MAP = {
         0: "Unknown",
         1: "Desktop",
-        2: "Notebook/Laptop",
+        2: "Laptop",
         3: "Server",
         4: "Tablet",
-        5: "Notebook Convertible",
+        5: "Convertible Notebook",
         6: "Workstation",
         7: "Enterprise Server",
         8: "Blade Server",
@@ -42,21 +41,22 @@ class DeviceInfoService:
         """
         info = {}
         for system in self.wmi_client.Win32_ComputerSystem():
-            # print(system)
-            info["Nome do Dispositivo"] = system.Name
+            print(system)
+            info["DeviceName"] = system.Name
             info["PC_Type"] = self.PC_SYSTEM_TYPE_MAP.get(system.PCSystemType, "Unknown")
-            info["Fabricante"] = system.Manufacturer
-            info["Modelo"] = system.Model
-            info["Usuário"] = system.UserName
+            info["Manufacturer"] = system.Manufacturer
+            info["Model"] = system.Model
+            info["User"] = system.UserName
             info["Status"] = system.Status
+            info["Architecture"] = system.SystemType
 
         # Informações de bateria (se houver)
         battery_list = []
         for battery in self.wmi_client.Win32_Battery():
             battery_list.append({
-                "name": battery.Name,
-                "status": battery.BatteryStatus
+                "Name": battery.Name,
+                "Status": battery.BatteryStatus
             })
-        info["battery"] = battery_list
+        info["Battery"] = battery_list
 
         return {"Device": info}

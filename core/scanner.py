@@ -2,7 +2,6 @@ from services.cpu_service import CPUService
 from services.disk_service import DiskService
 from services.ram_service import RAMService
 from services.os_service import OSService
-from services.arch_service import ArchService
 from services.device_model_service import DeviceInfoService
 from services.bios_service import BiosService
 from core.storage import update_machine_info, get_machine_info
@@ -22,8 +21,8 @@ class Scanner:
 
         # Instancia serviços com base nas configs
         self.services = []
-        for service_class in [OSService, CPUService, RAMService, DiskService,
-                              ArchService, DeviceInfoService, BiosService]:
+        for service_class in [OSService, CPUService, RAMService,
+                              DiskService, DeviceInfoService, BiosService]:
             name = service_class.__name__
             options = self.config.get(name, {})
             self.services.append(service_class(**options))

@@ -13,12 +13,12 @@ class OSService(BaseService):
         data = {}
 
         if self.options.get("system", True):
-            data["Sistema Operacional"] = platform.system()
+            data["OperatingSystem"] = platform.system()
 
         if self.options.get("version", True):
-            data["Versão"] = platform.version()
+            data["Version"] = platform.version()
 
         if self.options.get("release", True):
             data["Release"] = platform.release()
 
-        return {"S.O": data}
+        return {"OS": data}

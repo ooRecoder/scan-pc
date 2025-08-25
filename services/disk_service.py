@@ -21,7 +21,7 @@ class DiskService(BaseService):
         Retorna o modelo da unidade e todos os detalhes do disco.
         
         :param drive_letter: Letra da unidade, ex: 'C:\\'
-        :return: dict com 'Modelo' e 'Detalhes'
+        :return: dict com 'Model' e 'Details'
         """
         if not drive_letter.endswith("\\"):
             drive_letter += "\\"
@@ -33,59 +33,59 @@ class DiskService(BaseService):
                 for logical_disk in partition.associators("Win32_LogicalDiskToPartition"):
                     if logical_disk.DeviceID.upper() == drive_letter.rstrip("\\").upper():
                         # Converter o objeto WMI em dicionário
-                        detalhes = {prop: getattr(disk, prop) for prop in disk.properties.keys()}
+                        details = {prop: getattr(disk, prop) for prop in disk.properties.keys()}
                         return {
-                            "Modelo": disk.Model,
+                            "Model": disk.Model,
                             "Status": disk.Status,
-                            "Detalhes": detalhes
+                            "Details": details
                         }
         
         return {
-            "Modelo": None,
+            "Model": None,
             "Status": None,
-            "Detalhes": {}
+            "Details": {}
         }
 
     # ------------------ Coleta de informações ------------------
     def collect(self) -> dict:
-        discos = {}
+        disks = {}
         for part in psutil.disk_partitions(all=False):
             try:
-                disco_info = {
-                    "Ponto de Montagem": part.mountpoint,
-                    "Sistema de Arquivos": part.fstype
+                disk_info = {
+                    "MountPoint": part.mountpoint,
+                    "FileSystem": part.fstype
                 }
 
                 # Tipo e detalhes
                 if self.options.get("disk_model"):
                     info = self._get_disk_info(part.device)
-                    disco_info["Modelo"] = info.get("Modelo", "")
-                    disco_info["Status"] = info.get("Status", "Desconhecido")
-                    # disco_info["Detalhes"] = info.get("Detalhes", {})
+                    disk_info["Model"] = info.get("Model", "")
+                    disk_info["Status"] = info.get("Status", "Unknown")
+                    # disk_info["Details"] = info.get("Details", {})
 
                 # Uso
                 if self.options.get("usage"):
                     usage = psutil.disk_usage(part.mountpoint)
-                    disco_info.update({
+                    disk_info.update({
                         "Total": f"{round(usage.total / (1024**3), 2)} GB",
-                        "Usado": f"{round(usage.used / (1024**3), 2)} GB",
-                        "Livre": f"{round(usage.free / (1024**3), 2)} GB",
-                        "Percentual": f"{usage.percent}%"
+                        "Used": f"{round(usage.used / (1024**3), 2)} GB",
+                        "Free": f"{round(usage.free / (1024**3), 2)} GB",
+                        "Percent": f"{usage.percent}%"
                     })
 
                 # Estatísticas de IO
                 if self.options.get("io_stats"):
                     io_stats = psutil.disk_io_counters(perdisk=True).get(os.path.basename(part.device), None)
                     if io_stats:
-                        disco_info["IO"] = (
-                            f"Lidos: {io_stats.read_bytes}, Gravados: {io_stats.write_bytes}, "
-                            f"Leituras: {io_stats.read_count}, Gravações: {io_stats.write_count}"
+                        disk_info["IO"] = (
+                            f"Read: {io_stats.read_bytes}, Written: {io_stats.write_bytes}, "
+                            f"Reads: {io_stats.read_count}, Writes: {io_stats.write_count}"
                         )
                     else:
-                        disco_info["IO"] = "Não disponível"
+                        disk_info["IO"] = "Not available"
 
-                discos[part.device] = disco_info
+                disks[part.device] = disk_info
 
             except PermissionError:
                 continue
-        return {"Discos": discos}
+        return {"Disks": disks}

@@ -24,7 +24,7 @@ class RAMService(BaseService):
         elif self.metric == "percent":
             value = mem.percent
         else:
-            raise ValueError(f"Métrica desconhecida: {self.metric}")
+            raise ValueError(f"Unknown metric: {self.metric}")
 
         # Converte unidade apenas se não for porcentagem
         if self.metric != "percent":

@@ -1,7 +1,7 @@
 import wmi
+from .base_service import BaseService
 
-
-class BiosService:
+class BiosService(BaseService):
     """
     Serviço responsável por coletar informações da BIOS no Windows usando WMI.
 
@@ -21,10 +21,10 @@ class BiosService:
         
         bios_info = {}
         for bios in self.wmi_client.Win32_BIOS():
-            print(bios)
-            bios_info["Serial"] = bios.SerialNumber
-            bios_info["Versão"] = bios.BIOSVersion
-            bios_info["Release Date"] = bios.ReleaseDate
+            # print(bios)
+            bios_info["SerialNumber"] = bios.SerialNumber
+            bios_info["BIOSVersion"] = bios.BIOSVersion
+            bios_info["ReleaseDate"] = bios.ReleaseDate
             bios_info["Status"] = bios.Status
             bios_info["Manufacturer"] = bios.Manufacturer
             
