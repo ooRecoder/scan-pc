@@ -1,12 +1,9 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
-from core.services import ServiceManager
-from core.config_manager import ConfigManager
+from core import ServiceManager, ConfigManager, ComputerManager, Scanner
 from gui.service_frame import ServiceFrame
 from .verification_tab import VerificationTab
-from core.machines import ComputerManager
 from gui.tooltip import Tooltip
-from core.scanner import Scanner
 
 
 class MainApp(tk.Tk):
