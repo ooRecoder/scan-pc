@@ -9,4 +9,4 @@ class BaseService(ABC):
 
     @abstractmethod
     def collect(self) -> dict:
-        pass
+        raise NotImplementedError("Cada serviço deve implementar o método collect")

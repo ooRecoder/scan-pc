@@ -1,5 +1,4 @@
 import psutil
-import subprocess
 import os
 import wmi  # precisa instalar: pip install wmi
 from .base_service import BaseService
@@ -13,7 +12,7 @@ class DiskService(BaseService):
         self.options.setdefault("details", True)
         self.options.setdefault("io_stats", False)
         self.options.setdefault("usage", True)
-        self.options.setdefault("health_check", False)  # nova opção
+        # self.options.setdefault("health_check", False)
 
     # ------------------ Detecta modelo e detalhes do disco ------------------
     def _get_disk_info(self, drive_letter):

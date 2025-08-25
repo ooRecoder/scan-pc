@@ -1,43 +1,28 @@
-from services.cpu_service import CPUService
-from services.disk_service import DiskService
-from services.ram_service import RAMService
-from services.os_service import OSService
-from services.device_model_service import DeviceInfoService
-from services.bios_service import BiosService
+# scanner.py
+import importlib
+from core.config_manager import ConfigManager
 from core.storage import update_machine_info, get_machine_info
 
-
 class Scanner:
-    def __init__(self, config=None):
-        """
-        config = {
-            "CPUService": {"usage": True},
-            "DiskService": {"detail": "full"},
-            "RAMService": {},
-            "OSService": {}
-        }
-        """
-        self.config = config or {}
-
-        # Instancia serviços com base nas configs
-        self.services = []
-        for service_class in [OSService, CPUService, RAMService,
-                              DiskService, DeviceInfoService, BiosService]:
-            name = service_class.__name__
-            options = self.config.get(name, {})
-            self.services.append(service_class(**options))
+    def __init__(self, services):
+        self.config_manager = ConfigManager()
+        self.services = services  # Lista de nomes dos serviços
 
     def run(self, save=True):
         results = {}
-        for service in self.services:
-            results.update(service.collect())
-
-        if save:
-            update_machine_info(results)  # <--- Salva no JSON
+        for service_name in self.services:
+            module = importlib.import_module(f"services.{service_name.lower()}_service")
+            service_class = getattr(module, f"{service_name}Service")
+            options = self.config_manager.get_service_config(service_name)
+            service_instance = service_class(**options)
+            
+            results.update(service_instance.collect())
+            
+            if save:
+                update_machine_info(results)  # <--- Salva no JSON
 
         return results
 
     def get_saved_info(self):
         """Retorna as informações salvas desta máquina."""
         return get_machine_info()
-
