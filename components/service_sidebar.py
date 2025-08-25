@@ -1,11 +1,13 @@
 from PySide6.QtWidgets import QScrollArea, QWidget, QVBoxLayout, QLabel, QPushButton
-from PySide6.QtCore import Qt
+from PySide6.QtCore import Qt, Signal
 from PySide6.QtGui import QFont
 
 from .service_checkbox import ServiceCheckBox
 
 class ServiceSidebar(QScrollArea):
     """Barra lateral com lista de serviços"""
+    serviceSelected = Signal(str)
+    
     def __init__(self, service_names, service_manager, parent=None):
         super().__init__(parent)
         self.service_manager = service_manager
@@ -39,6 +41,12 @@ class ServiceSidebar(QScrollArea):
             if description:
                 cb.setToolTip(description)
             
+            # Conectar sinal de foco para mostrar detalhes
+            cb.focused.connect(self.serviceSelected.emit)
+            
+            # Conectar clique para mostrar detalhes
+            cb.stateChanged.connect(lambda state, s=service: self.on_service_selected(s, state))
+            
             self.service_checkboxes[service] = cb
             layout.addWidget(cb)
         
@@ -52,3 +60,8 @@ class ServiceSidebar(QScrollArea):
         layout.addWidget(self.run_button)
         
         self.setWidget(container)
+    
+    def on_service_selected(self, service_name, state):
+        """Lida com a seleção de um serviço"""
+        if state == Qt.CheckState.Checked.value:
+            self.serviceSelected.emit(service_name)

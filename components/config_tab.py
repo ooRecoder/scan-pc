@@ -21,3 +21,6 @@ class ConfigTab(QWidget):
         # Área de conteúdo
         self.content_area = ServiceContentArea(self.service_manager)
         main_layout.addWidget(self.content_area, 1)  # Expande para preencher espaço
+        
+        # Conectar sinais
+        self.sidebar.serviceSelected.connect(self.content_area.show_service)
