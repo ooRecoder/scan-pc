@@ -6,8 +6,9 @@ from .service_checkbox import ServiceCheckBox
 
 class ServiceSidebar(QScrollArea):
     """Barra lateral com lista de serviços"""
-    def __init__(self, service_names, parent=None):
+    def __init__(self, service_names, service_manager, parent=None):
         super().__init__(parent)
+        self.service_manager = service_manager
         self.setWidgetResizable(True)
         self.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         self.setFixedWidth(250)
@@ -32,6 +33,12 @@ class ServiceSidebar(QScrollArea):
         for service in service_names:
             cb = ServiceCheckBox(service)
             cb.setCursor(Qt.CursorShape.PointingHandCursor)
+            
+            # Obter descrição do serviço
+            description = self.service_manager.get_service_description(service)
+            if description:
+                cb.setToolTip(description)
+            
             self.service_checkboxes[service] = cb
             layout.addWidget(cb)
         
