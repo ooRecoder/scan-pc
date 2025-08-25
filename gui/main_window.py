@@ -2,10 +2,10 @@ from PySide6.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QTabWidget, QLa
 
 from components import ConfigTab
 from styles.styles import STYLESHEET
-from core import ServiceManager
+from core import ServiceManager, ConfigManager
 
 class MainWindow(QMainWindow):
-    def __init__(self, service_manager: ServiceManager):
+    def __init__(self, service_manager: ServiceManager, config_manager: ConfigManager):
         super().__init__()
         self.service_manager = service_manager
         self.setWindowTitle("Configuração de Serviços")
