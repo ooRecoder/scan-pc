@@ -6,7 +6,7 @@ class CPUService(BaseService):
     def __init__(self, **options):
         super().__init__(**options)
         # Configurações padrão
-        self.options.setdefault("usage", True)   # mostrar uso da CPU
+        self.options.setdefault("usage", False)   # mostrar uso da CPU
         self.options.setdefault("cores", True)   # mostrar número de núcleos
         self.options.setdefault("details", True) # mostrar detalhes do processador
 
