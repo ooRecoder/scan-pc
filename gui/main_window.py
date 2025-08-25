@@ -5,11 +5,9 @@ from styles.styles import STYLESHEET
 from core import ServiceManager
 
 class MainWindow(QMainWindow):
-    def __init__(self):
+    def __init__(self, service_manager: ServiceManager):
         super().__init__()
-        
-        self.sm = ServiceManager()
-        
+        self.service_manager = service_manager
         self.setWindowTitle("Configuração de Serviços")
         self.setGeometry(100, 100, 1000, 700)
         
@@ -32,11 +30,11 @@ class MainWindow(QMainWindow):
         self.tab_widget = QTabWidget()
         main_layout.addWidget(self.tab_widget)
         
-        # Dados de exemplo (substituir pelos serviços reais)
-        service_names = self.sm.get_service_names()
+        # Obter nomes dos serviços do ServiceManager
+        service_names = self.service_manager.get_service_names()
         
         # Aba de configuração
-        self.config_tab = ConfigTab(service_names)
+        self.config_tab = ConfigTab(service_names, self.service_manager)
         self.tab_widget.addTab(self.config_tab, "Configuração")
         
         # Aba de verificação (placeholder)

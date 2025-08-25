@@ -5,7 +5,7 @@ from .service_content import ServiceContentArea
 
 class ConfigTab(QWidget):
     """Aba de configuração principal"""
-    def __init__(self, service_names, parent=None):
+    def __init__(self, service_names, sm, parent=None):
         super().__init__(parent)
         
         # Create the main layout
