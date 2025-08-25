@@ -1,7 +1,7 @@
 from .base_service import BaseService
 import wmi
 
-class DeviceService(BaseService):
+class DEVICE(BaseService):
     """
     Serviço responsável por coletar e organizar informações detalhadas
     do sistema Windows por meio do WMI (Windows Management Instrumentation).

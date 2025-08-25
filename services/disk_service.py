@@ -4,7 +4,7 @@ import wmi  # precisa instalar: pip install wmi
 from .base_service import BaseService
 
 
-class DiskService(BaseService):
+class DISK(BaseService):
     def __init__(self, **options):
         super().__init__(**options)
         # Configurações padrão

@@ -1,7 +1,7 @@
 import platform
 from .base_service import BaseService
 
-class OSService(BaseService):
+class OS(BaseService):
     def __init__(self, **options):
         super().__init__(**options)
         # Configurações padrão

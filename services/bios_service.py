@@ -1,7 +1,7 @@
 import wmi
 from .base_service import BaseService
 
-class BiosService(BaseService):
+class BIOS(BaseService):
     """
     Serviço responsável por coletar informações da BIOS no Windows usando WMI.
 

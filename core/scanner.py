@@ -12,7 +12,7 @@ class Scanner:
         results = {}
         for service_name in self.services:
             module = importlib.import_module(f"services.{service_name.lower()}_service")
-            service_class = getattr(module, f"{service_name}Service")
+            service_class = getattr(module, service_name.upper())
             options = self.config_manager.get_service_config(service_name)
             service_instance = service_class(**options)
             

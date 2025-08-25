@@ -2,7 +2,7 @@ import platform
 import psutil
 from .base_service import BaseService
 
-class CPUService(BaseService):
+class CPU(BaseService):
     def __init__(self, **options):
         super().__init__(**options)
         # Configurações padrão
